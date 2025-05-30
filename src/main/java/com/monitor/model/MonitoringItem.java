@@ -182,6 +182,18 @@ public class MonitoringItem implements Serializable {
         this.settlementDataStorage = settlementDataStorage;
     }
     
+    /**
+     * 获取或创建沉降数据存储对象
+     * 如果存储对象已存在，直接返回；否则创建一个新的存储对象
+     * @return 沉降数据存储对象
+     */
+    public SettlementDataStorage getOrCreateSettlementDataStorage() {
+        if (this.settlementDataStorage == null) {
+            this.settlementDataStorage = new SettlementDataStorage();
+        }
+        return this.settlementDataStorage;
+    }
+    
     public PileDisplacementDataStorage getPileDisplacementDataStorage() {
         return pileDisplacementDataStorage;
     }

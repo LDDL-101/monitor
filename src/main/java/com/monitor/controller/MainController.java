@@ -2695,13 +2695,13 @@ public class MainController implements Initializable {
                 // 设置Stage
                 controller.setStage(getStage());
 
-                // 如果存在沉降数据存储对象，优先使用它
-                if (item.getSettlementDataStorage() != null) {
-                    controller.loadFromSettlementDataStorage(item.getSettlementDataStorage());
-                    System.out.println("已从沉降数据存储对象加载数据");
-                }
-                // 如果没有沉降数据存储对象，但存在测量记录，则使用测量记录
-                else if (item.getRecords() != null && !item.getRecords().isEmpty()) {
+                // 获取或创建沉降数据存储对象
+                SettlementDataStorage storage = item.getOrCreateSettlementDataStorage();
+                controller.loadFromSettlementDataStorage(storage);
+                System.out.println("已加载沉降数据：" + (storage.getDataBlockTimestamps() != null ? storage.getDataBlockTimestamps().size() : 0) + " 个数据块");
+
+                // 如果没有沉降数据存储对象中的数据，但存在测量记录，则使用测量记录
+                if (storage.getDataBlockTimestamps().isEmpty() && item.getRecords() != null && !item.getRecords().isEmpty()) {
                     controller.loadFromMeasurementRecords(item.getRecords());
                     System.out.println("已加载沉降监测数据: " + item.getRecords().size() + " 条记录");
                 }

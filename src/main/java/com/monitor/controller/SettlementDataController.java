@@ -13,10 +13,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.monitor.model.SettlementData;
+import com.monitor.model.SettlementDataStorage;
 import com.monitor.model.SettlementPoint;
 import com.monitor.model.MeasurementRecord;
-import com.monitor.model.SettlementDataStorage;
-import com.monitor.model.SettlementDataStorage.SettlementDataWrapper;
 import com.monitor.util.AlertUtil;
 import com.monitor.util.ExcelUtil;
 import com.monitor.view.SettlementPointSettingsController;
@@ -959,39 +958,20 @@ public class SettlementDataController {
         SettlementDataStorage storage = new SettlementDataStorage();
 
         // 保存测点配置
-        storage.setConfiguredPoints(new ArrayList<>(configuredPoints));
+        storage.setPoints(new ArrayList<>(configuredPoints));
 
-        // 保存所有测点数据
-        Map<String, Map<LocalDate, SettlementDataWrapper>> wrappedPointDataMap = new HashMap<>();
-        for (Map.Entry<String, Map<LocalDate, SettlementData>> entry : allPointDataMap.entrySet()) {
-            String pointId = entry.getKey();
-            Map<LocalDate, SettlementData> dateMap = entry.getValue();
-
-            Map<LocalDate, SettlementDataWrapper> wrappedDateMap = new HashMap<>();
-            for (Map.Entry<LocalDate, SettlementData> dateEntry : dateMap.entrySet()) {
-                LocalDate date = dateEntry.getKey();
-                SettlementData data = dateEntry.getValue();
-                wrappedDateMap.put(date, new SettlementDataWrapper(data));
-            }
-
-            wrappedPointDataMap.put(pointId, wrappedDateMap);
-        }
-        storage.setAllPointDataMap(wrappedPointDataMap);
-
-        // 保存数据块映射
-        Map<LocalDateTime, List<SettlementDataWrapper>> wrappedDataBlocksMap = new HashMap<>();
+        // 保存数据块
         for (Map.Entry<LocalDateTime, List<SettlementData>> entry : dataBlocksMap.entrySet()) {
-            LocalDateTime dateTime = entry.getKey();
+            LocalDateTime timestamp = entry.getKey();
             List<SettlementData> dataList = entry.getValue();
-
-            List<SettlementDataWrapper> wrappedDataList = new ArrayList<>();
-            for (SettlementData data : dataList) {
-                wrappedDataList.add(new SettlementDataWrapper(data));
-            }
-
-            wrappedDataBlocksMap.put(dateTime, wrappedDataList);
+            storage.addDataBlock(timestamp, new ArrayList<>(dataList), timestamp.toString());
         }
-        storage.setDataBlocksMap(wrappedDataBlocksMap);
+        
+        // 保存选中的数据块
+        storage.setSelectedDataBlocks(new ArrayList<>(selectedDataBlocks));
+        
+        // 保存自定义天数设置
+        storage.setCustomDaysForRateCalculation(customDaysForRateCalculation);
 
         return storage;
     }
@@ -1141,44 +1121,52 @@ public class SettlementDataController {
         selectedDataBlocks.clear();
 
         // 加载测点配置
-        configuredPoints = new ArrayList<>(storage.getConfiguredPoints());
-
-        // 加载所有测点数据
-        Map<String, Map<LocalDate, SettlementDataWrapper>> wrappedPointDataMap = storage.getAllPointDataMap();
-        for (Map.Entry<String, Map<LocalDate, SettlementDataWrapper>> entry : wrappedPointDataMap.entrySet()) {
-            String pointId = entry.getKey();
-            Map<LocalDate, SettlementDataWrapper> wrappedDateMap = entry.getValue();
-
-            Map<LocalDate, SettlementData> dateMap = new HashMap<>();
-            for (Map.Entry<LocalDate, SettlementDataWrapper> dateEntry : wrappedDateMap.entrySet()) {
-                LocalDate date = dateEntry.getKey();
-                SettlementDataWrapper wrapper = dateEntry.getValue();
-                dateMap.put(date, wrapper.toSettlementData());
-            }
-
-            allPointDataMap.put(pointId, dateMap);
+        if (storage.getPoints() != null) {
+            configuredPoints = new ArrayList<>(storage.getPoints());
+        } else {
+            configuredPoints = new ArrayList<>();
         }
 
-        // 加载数据块映射
-        Map<LocalDateTime, List<SettlementDataWrapper>> wrappedDataBlocksMap = storage.getDataBlocksMap();
-        for (Map.Entry<LocalDateTime, List<SettlementDataWrapper>> entry : wrappedDataBlocksMap.entrySet()) {
-            LocalDateTime dateTime = entry.getKey();
-            List<SettlementDataWrapper> wrappedDataList = entry.getValue();
-
-            List<SettlementData> dataList = new ArrayList<>();
-            for (SettlementDataWrapper wrapper : wrappedDataList) {
-                dataList.add(wrapper.toSettlementData());
+        // 加载数据块
+        for (LocalDateTime timestamp : storage.getDataBlockTimestamps()) {
+            List<SettlementData> dataList = storage.getDataBlock(timestamp);
+            if (dataList != null && !dataList.isEmpty()) {
+                // 添加到数据块映射
+                dataBlocksMap.put(timestamp, new ArrayList<>(dataList));
+                
+                // 更新全局数据映射
+                for (SettlementData data : dataList) {
+                    String pointId = data.getPointCode();
+                    LocalDate date = data.getMeasurementDate();
+                    
+                    // 获取或创建测点映射
+                    Map<LocalDate, SettlementData> pointMap = allPointDataMap.computeIfAbsent(pointId, k -> new HashMap<>());
+                    
+                    // 添加数据
+                    pointMap.put(date, data);
+                }
+                
+                // 创建数据块复选框
+                addDataBlock(timestamp.toString(), timestamp);
             }
-
-            dataBlocksMap.put(dateTime, dataList);
-
-            // 创建并添加数据块
-            addDataBlock("\u52a0\u8f7d\u7684\u6570\u636e", dateTime);
         }
-
-        // 更新UI
-        updatePointCount();
-        updateTableWithInitialData();
+        
+        // 设置选中的数据块
+        if (storage.getSelectedDataBlocks() != null) {
+            for (LocalDateTime timestamp : storage.getSelectedDataBlocks()) {
+                if (dataBlockCheckBoxMap.containsKey(timestamp)) {
+                    CheckBox checkBox = dataBlockCheckBoxMap.get(timestamp);
+                    checkBox.setSelected(true);
+                    selectedDataBlocks.add(timestamp);
+                }
+            }
+        }
+        
+        // 设置自定义天数
+        customDaysForRateCalculation = storage.getCustomDaysForRateCalculation();
+        
+        // 更新数据显示
+        updateTableBasedOnSelection();
     }
 
     /**

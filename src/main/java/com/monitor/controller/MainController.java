@@ -422,11 +422,11 @@ public class MainController implements Initializable {
                         // 找到所属项目
                         TreeItem<String> parent = selectedItem.getParent();
                         if (parent != null && !parent.getValue().equals("工程列表")) {
-                            // 使用项目名称打开沉降视图
-                            openSubsidenceView(parent.getValue());
+                            // 使用通用方法打开沉降视图
+                            openMonitoringItemWithProject(parent.getValue(), "地表点沉降");
                         } else {
                             // 如果没有找到父项目，使用默认名称
-                            openSubsidenceView("工程列表");
+                            openMonitoringItemWithProject("工程列表", "地表点沉降");
                         }
                     }
                     // 检查是否是"桩顶竖向位移"项
@@ -565,7 +565,7 @@ public class MainController implements Initializable {
                 if (selectedItem != null && !selectedItem.getValue().equals("监测概况")) {
                     // 检查是否是 "沉降监测" 项
                     if (selectedItem.getValue().equals("沉降监测")) {
-                        openSubsidenceView("概览");
+                        openMonitoringItemWithProject("概览", "地表点沉降");
                     } else {
                     openOverviewTab(selectedItem.getValue());
                 }
@@ -847,7 +847,7 @@ public class MainController implements Initializable {
                     if (displacementItem != null) {
                         // 如果存在桩顶竖向位移数据存储对象，优先使用它
                         if (displacementItem.getPileDisplacementDataStorage() != null) {
-                            displacementController.loadFromSettlementDataStorage(displacementItem.getPileDisplacementDataStorage());
+                            displacementController.loadFromPileDisplacementDataStorage(displacementItem.getPileDisplacementDataStorage());
                             System.out.println("已从桩顶竖向位移数据存储对象加载数据");
                         }
                         // 如果没有桩顶竖向位移数据存储对象，但存在测量记录，则使用测量记录

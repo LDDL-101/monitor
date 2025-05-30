@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" stylesheets="@../../css/style.css" styleClass="settings-dialog" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.monitor.view.SettlementPointSettingsController">
+   <center>
+      <HBox spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="pointsTableView" HBox.hgrow="ALWAYS" styleClass="settings-table">
+               <columns>
+                  <TableColumn fx:id="pointIdColumn" prefWidth="100.0" text="测点编号" />
+                  <TableColumn fx:id="initialElevationColumn" prefWidth="100.0" text="初始高程(m)" />
+                  <TableColumn fx:id="mileageColumn" prefWidth="100.0" text="里程" />
+                  <TableColumn fx:id="rateWarningColumn" prefWidth="120.0" text="速率报警值(mm)" />
+                  <TableColumn fx:id="accumulatedWarningColumn" prefWidth="120.0" text="累计报警值(mm)" />
+                  <TableColumn fx:id="historicalCumulativeColumn" prefWidth="120.0" text="历史累计量(mm)" />
+               </columns>
+               <contextMenu>
+                  <ContextMenu>
+                     <items>
+                        <MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" text="删除" onAction="#handleDeletePoint" />
+                     </items>
+                  </ContextMenu>
+               </contextMenu>
+            </TableView>
+            <VBox spacing="3.0" HBox.hgrow="NEVER" styleClass="compact-input-panel" maxWidth="200.0">
+               <children>
+                  <Label text="添加/编辑测点" styleClass="compact-title">
+                     <VBox.margin>
+                        <Insets bottom="3.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Separator>
+                     <VBox.margin>
+                        <Insets bottom="2.0" />
+                     </VBox.margin>
+                  </Separator>
+                  <Label text="测点编号：" styleClass="compact-input-label" />
+                  <TextField fx:id="pointIdField" styleClass="compact-input-field" />
+                  <Label text="初始高程：" styleClass="compact-input-label" />
+                  <TextField fx:id="initialElevationField" styleClass="compact-input-field" />
+                  <Label text="里程：" styleClass="compact-input-label" />
+                  <TextField fx:id="mileageField" styleClass="compact-input-field" />
+                  <Label text="速率报警值：" styleClass="compact-input-label" />
+                  <TextField fx:id="rateWarningField" styleClass="compact-input-field" />
+                  <Label text="累计报警值：" styleClass="compact-input-label" />
+                  <TextField fx:id="accumulatedWarningField" styleClass="compact-input-field" />
+                  <Label text="历史累计量：" styleClass="compact-input-label" />
+                  <TextField fx:id="historicalCumulativeField" styleClass="compact-input-field" />
+                  <HBox spacing="5.0">
+                     <children>
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddPoint" text="添加" styleClass="compact-button" />
+                        <Button fx:id="batchImportButton" mnemonicParsing="false" onAction="#handleBatchImport" text="批量录入" styleClass="compact-button" />
+                     </children>
+                     <padding>
+                        <Insets top="8.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="10.0" styleClass="button-panel" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="exportButton" mnemonicParsing="false" onAction="#handleExport" text="导出档案" styleClass="compact-button" />
+            <Button fx:id="closeButton" mnemonicParsing="false" onAction="#handleClose" text="关闭" styleClass="compact-button" />
+         </children>
+         <padding>
+            <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane> 

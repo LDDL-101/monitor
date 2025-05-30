@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="850.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.monitor.view.DeepHorizontalDisplacementPointSettingsController">
+   <center>
+      <TableView fx:id="measurementTableView" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="depthColumn" prefWidth="120.0" text="深度(m)" />
+          <TableColumn fx:id="initialValueColumn" prefWidth="160.0" text="初始值(mm)" />
+          <TableColumn fx:id="rateAlarmColumn" prefWidth="160.0" text="速率报警值(mm)" />
+          <TableColumn fx:id="cumulativeAlarmColumn" prefWidth="180.0" text="累计报警值(mm)" />
+          <TableColumn fx:id="historicalCumulativeColumn" prefWidth="180.0" text="历史累积值(mm)" />
+        </columns>
+      </TableView>
+   </center>
+   <bottom>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <Label text="编辑测点信息：" styleClass="section-header">
+               <padding>
+                  <Insets bottom="5.0" left="0.0" right="0.0" top="10.0" />
+               </padding>
+            </Label>
+            <HBox spacing="15.0">
+               <children>
+                  <VBox>
+                     <children>
+                        <Label text="深度(m)" />
+                        <TextField fx:id="depthField" promptText="输入深度" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="初始值(mm)" />
+                        <TextField fx:id="initialValueField" promptText="输入初始值" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="速率报警值(mm)" />
+                        <TextField fx:id="rateAlarmField" promptText="输入速率报警值" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="累计报警值(mm)" />
+                        <TextField fx:id="cumulativeAlarmField" promptText="输入累计报警值" />
+                     </children>
+                  </VBox>
+                  <VBox>
+                     <children>
+                        <Label text="历史累积值(mm)" />
+                        <TextField fx:id="historicalCumulativeField" promptText="输入历史累积值" />
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="0.0" right="0.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox spacing="10.0">
+               <children>
+                  <Button fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButton" styleClass="primary-button" text="添加" />
+                  <Button fx:id="updateButton" mnemonicParsing="false" onAction="#handleUpdateButton" styleClass="primary-button" text="更新" />
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#handleDeleteButton" styleClass="primary-button" text="删除" />
+                  <Button fx:id="batchImportButton" mnemonicParsing="false" onAction="#handleBatchImportButton" styleClass="secondary-button" text="批量录入" />
+                  <Button fx:id="exportButton" mnemonicParsing="false" onAction="#handleExportButton" styleClass="secondary-button" text="导出到Excel" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="0.0" right="0.0" top="0.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" spacing="10.0">
+               <children>
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveButton" styleClass="primary-button" text="保存" />
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButton" styleClass="secondary-button" text="取消" />
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </bottom>
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="dialog-title" text="深部水平位移测点设置" textAlignment="CENTER">
+               <padding>
+                  <Insets bottom="15.0" left="0.0" right="0.0" top="15.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label text="测点名称：" />
+                  <ComboBox fx:id="pointSelector" prefWidth="200.0" promptText="选择测点" />
+                  <Button fx:id="addPointButton" mnemonicParsing="false" onAction="#handleAddPointButton" styleClass="primary-button" text="添加测点" />
+                  <Button fx:id="removePointButton" mnemonicParsing="false" onAction="#handleRemovePointButton" styleClass="primary-button" text="删除测点" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="0.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="15.0">
+               <children>
+                  <Label text="测点编号：" />
+                  <TextField fx:id="pointIdField" prefWidth="200.0" promptText="输入测点编号" />
+                  <Label text="里程：" />
+                  <TextField fx:id="mileageField" prefWidth="200.0" promptText="输入里程" />
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="0.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
+</BorderPane> 

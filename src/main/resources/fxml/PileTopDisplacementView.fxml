@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" styleClass="pile-top-view" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.monitor.controller.PileTopDisplacementController">
+   <content>
+      <BorderPane stylesheets="@../css/style.css" styleClass="pile-top-view">
+         <top>
+            <VBox spacing="15.0" BorderPane.alignment="CENTER">
+               <children>
+                  <!-- Control Panel - Now includes a subtle title -->
+                  <VBox spacing="10.0" styleClass="control-panel">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                           <children>
+                              <Label text="桩顶竖向位移数据管理" styleClass="compact-title" />
+                              <Separator orientation="VERTICAL" />
+                              <Button fx:id="uploadDataButton" styleClass="primary-button" text="上传数据" onAction="#handleUploadButtonAction" />
+                              <HBox alignment="CENTER" spacing="8.0">
+                                 <children>
+                                    <Label text="选择日期" styleClass="info-label" />
+                                    <DatePicker fx:id="datePicker" promptText="选择日期" />
+                                 </children>
+                              </HBox>
+                              <Button fx:id="exportButton" styleClass="secondary-button" text="导出数据" onAction="#handleExportButtonAction" />
+                              <Button fx:id="monitoringPointSettingsButton" styleClass="secondary-button" text="测点设置" onAction="#handleSettingsButtonAction" />
+                           </children>
+                        </HBox>
+                        <!-- Info panel - status information -->
+                        <HBox spacing="30.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                 <children>
+                                    <Label text="测点总数:" styleClass="info-label" />
+                                    <Label fx:id="pointCountLabel" text="0" styleClass="info-value" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" spacing="5.0">
+                                 <children>
+                                    <Label text="上传日期:" styleClass="info-label" />
+                                    <Label fx:id="uploadDateLabel" text="无" styleClass="info-value" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <!-- Data Blocks Container -->
+                  <VBox fx:id="dataBlocksContainer" spacing="10.0" styleClass="data-blocks-container">
+                     <children>
+                        <Label text="已上传数据列表" styleClass="section-header" />
+                        <ScrollPane fitToWidth="true" prefHeight="120.0" prefViewportHeight="120.0">
+                           <content>
+                              <FlowPane fx:id="dataBlocksFlowPane" hgap="10.0" prefWrapLength="800.0" vgap="10.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+            </VBox>
+         </top>
+         <center>
+            <TabPane fx:id="analysisTabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+               <tabs>
+                  <Tab fx:id="tableAnalysisTab" text="表格分析">
+                     <content>
+                        <TableView fx:id="dataTableView" styleClass="data-table" prefHeight="400.0">
+                           <columns>
+                              <TableColumn fx:id="serialNumberColumn" prefWidth="50.0" text="序号" />
+                              <TableColumn fx:id="pointCodeColumn" prefWidth="100.0" text="测点编号" />
+                              <TableColumn fx:id="initialElevationColumn" prefWidth="100.0" text="初始高程" />
+                              <TableColumn fx:id="previousElevationColumn" prefWidth="100.0" text="上次高程" />
+                              <TableColumn fx:id="currentElevationColumn" prefWidth="100.0" text="本次高程" />
+                              <TableColumn fx:id="currentChangeColumn" prefWidth="100.0" text="本次变化量" />
+                              <TableColumn fx:id="cumulativeChangeColumn" prefWidth="100.0" text="累计变化量" />
+                              <TableColumn fx:id="changeRateColumn" prefWidth="80.0" text="变化速率" />
+                              <TableColumn fx:id="mileageColumn" prefWidth="80.0" text="里程" />
+                              <TableColumn fx:id="historicalCumulativeColumn" prefWidth="100.0" text="历史累计值" />
+                           </columns>
+                        </TableView>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="chartAnalysisTab" text="图像分析">
+                     <content>
+                        <BorderPane fx:id="chartContainer" prefHeight="400.0" prefWidth="600.0">
+                           <top>
+                              <HBox alignment="CENTER" spacing="15.0" styleClass="control-panel" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label text="图表类型:" styleClass="info-label" />
+                                    <ToggleButton fx:id="displacementChartButton" mnemonicParsing="false" selected="true" text="位移变化量图" styleClass="toggle-button">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="chartButtonToggleGroup" />
+                                       </toggleGroup>
+                                    </ToggleButton>
+                                    <ToggleButton fx:id="rateChartButton" mnemonicParsing="false" text="变化速率图" toggleGroup="$chartButtonToggleGroup" styleClass="toggle-button" />
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="10.0" left="15.0" right="15.0" top="10.0" />
+                                 </padding>
+                              </HBox>
+                           </top>
+                        </BorderPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </center>
+         <padding>
+            <Insets bottom="15.0" />
+         </padding>
+      </BorderPane>
+   </content>
+</ScrollPane> 

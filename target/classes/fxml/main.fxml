@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.CheckMenuItem?>
+
+<BorderPane fx:id="mainPane" prefHeight="768.0" prefWidth="1024.0" styleClass="main-pane" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.monitor.controller.MainController">
+   <top>
+      <BorderPane prefHeight="100.0" BorderPane.alignment="CENTER">
+         <top>
+            <HBox fx:id="windowHeader" alignment="CENTER_LEFT" styleClass="app-title">
+               <children>
+                  <ImageView fx:id="appIcon" fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../images/app_icon.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="titleLabel" alignment="CENTER_LEFT" text="中铁一院测研院工程监测管理软件">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="minimizeButton" mnemonicParsing="false" styleClass="window-button" text="_" />
+                  <Button fx:id="maximizeButton" mnemonicParsing="false" styleClass="window-button" text="□" />
+                  <Button fx:id="closeButton" mnemonicParsing="false" styleClass="window-close-button" text="×" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </top>
+         <center>
+            <MenuBar styleClass="menu-bar" BorderPane.alignment="CENTER">
+              <menus>
+                <Menu mnemonicParsing="false" text="文件(F)">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="新建" />
+                    <MenuItem mnemonicParsing="false" text="打开" />
+                    <MenuItem mnemonicParsing="false" text="保存" />
+                    <MenuItem mnemonicParsing="false" text="另存为" />
+                    <MenuItem mnemonicParsing="false" text="退出" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="编辑(E)">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="复制" />
+                    <MenuItem mnemonicParsing="false" text="粘贴" />
+                    <MenuItem mnemonicParsing="false" text="删除" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="工具(T)">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="数据导入" />
+                    <MenuItem mnemonicParsing="false" text="数据分析" />
+                    <SeparatorMenuItem />
+                    <CheckMenuItem fx:id="toggleToolbarMenuItem" mnemonicParsing="false" text="显示工具栏" selected="true" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="设置(S)">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="系统设置" />
+                    <MenuItem mnemonicParsing="false" text="数据库设置" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="窗口(W)">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="最小化" />
+                    <MenuItem mnemonicParsing="false" text="最大化" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="帮助(H)">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="关于" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </center>
+         <bottom>
+            <ToolBar fx:id="mainToolBar" styleClass="tool-bar" BorderPane.alignment="CENTER">
+               <items>
+                  <Button fx:id="newButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="新建">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/new.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="openButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="打开">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/open.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="saveButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="保存">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/save.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="saveAsButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="另存为">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/save_as.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator orientation="VERTICAL" />
+                  <Button fx:id="addModuleButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="添加模块">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/add_module.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="projectPropertiesButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="工程属性">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/properties.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator orientation="VERTICAL" />
+                  <Button fx:id="saveDefaultButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="保存默认值">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/save_default.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="loadDefaultButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="调取默认值">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/load_default.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Separator orientation="VERTICAL" />
+                  <Button fx:id="parametersButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="参数/定义">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/parameters.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="userLabel" text="登录用户: admin">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/user.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Label>
+                     </children>
+                  </HBox>
+               </items>
+            </ToolBar>
+         </bottom>
+      </BorderPane>
+   </top>
+   <center>
+      <SplitPane dividerPositions="0.25" BorderPane.alignment="CENTER">
+         <items>
+            <!-- 左侧侧边栏 -->
+            <VBox fx:id="sidebarPane" styleClass="sidebar" VBox.vgrow="ALWAYS">
+               <children>
+                  <TitledPane animated="false" expanded="true" text="工程管理" VBox.vgrow="ALWAYS">
+                     <content>
+                        <TreeView fx:id="projectTreeView" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/properties.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </TitledPane>
+                  <TitledPane animated="false" expanded="true" text="监测报表" VBox.vgrow="ALWAYS">
+                     <content>
+                        <TreeView fx:id="reportsTreeView" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/save.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </TitledPane>
+                  <TitledPane animated="false" expanded="true" text="监测概况" VBox.vgrow="ALWAYS">
+                     <content>
+                        <TreeView fx:id="overviewTreeView" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+                     </content>
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/parameters.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </TitledPane>
+               </children>
+            </VBox>
+
+            <!-- 右侧编辑器区域 -->
+            <TabPane fx:id="editorTabPane" tabClosingPolicy="ALL_TABS">
+               <tabs>
+                  <Tab text="欢迎">
+                     <content>
+                        <BorderPane styleClass="welcome-pane">
+                           <center>
+                              <VBox alignment="CENTER" spacing="30.0">
+                                 <children>
+                                    <ImageView fitHeight="120.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../images/app_icon.png" />
+                                       </image>
+                                       <effect>
+                                          <javafx.scene.effect.DropShadow color="#00000033" height="10.0" radius="4.5" width="10.0" />
+                                       </effect>
+                                    </ImageView>
+                                    <Label text="欢迎使用中铁一院测研院工程监测管理软件" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="System Bold" size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="请从左侧选择工程或测点，或创建新工程" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="CENTER" spacing="20.0">
+                                       <children>
+                                          <Button fx:id="welcomeNewButton" text="新建工程" styleClass="primary-button" />
+                                          <Button fx:id="welcomeOpenButton" text="打开工程" styleClass="secondary-button" />
+                                       </children>
+                                       <padding>
+                                          <Insets top="20.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+                                 </padding>
+                              </VBox>
+                           </center>
+                        </BorderPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </items>
+      </SplitPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_LEFT" prefHeight="25.0" styleClass="status-bar" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="就绪" styleClass="info-label">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+               <graphic>
+                  <Circle radius="4.0" fill="#2ecc71" />
+               </graphic>
+            </Label>
+            <Separator orientation="VERTICAL">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </HBox.margin>
+            </Separator>
+            <Label text="工程: 0" styleClass="info-label" />
+            <Separator orientation="VERTICAL">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="10.0" right="10.0" top="2.0" />
+               </HBox.margin>
+            </Separator>
+            <Label text="自动保存已启用" styleClass="info-label" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

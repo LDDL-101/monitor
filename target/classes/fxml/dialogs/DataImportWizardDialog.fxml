@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" stylesheets="@../../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.monitor.view.DataImportWizardController">
+   <top>
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" styleClass="page-title" text="数据导入向导" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+   <center>
+      <VBox spacing="20.0" BorderPane.alignment="CENTER">
+         <children>
+            <!-- 步骤1: 选择文件 -->
+            <VBox fx:id="step1Box" spacing="15.0">
+               <children>
+                  <Label styleClass="step-title" text="步骤1: 选择数据文件">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="请选择包含测点数据的Excel文件。文件应包含测点编号和高程数据。" wrapText="true" />
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <Button fx:id="selectFileButton" mnemonicParsing="false" onAction="#handleSelectFile" text="选择文件" />
+                        <Label fx:id="selectedFileLabel" text="未选择文件" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Button fx:id="nextButton1" mnemonicParsing="false" onAction="#handleNext1" text="下一步" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            
+            <!-- 步骤2: 预览数据 -->
+            <VBox fx:id="step2Box" spacing="15.0" visible="false">
+               <children>
+                  <Label styleClass="step-title" text="步骤2: 预览数据">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="请检查以下数据是否正确。如果有测点不存在，可以选择自动创建。" wrapText="true" />
+                  <TableView fx:id="previewTableView" prefHeight="250.0">
+                     <columns>
+                        <TableColumn fx:id="pointIdColumn" prefWidth="150.0" text="测点编号" />
+                        <TableColumn fx:id="elevationColumn" prefWidth="150.0" text="高程(m)" />
+                     </columns>
+                  </TableView>
+                  <CheckBox fx:id="createMissingPointsCheckBox" mnemonicParsing="false" selected="true" text="自动创建不存在的测点" />
+                  <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                     <children>
+                        <Button fx:id="backButton2" mnemonicParsing="false" onAction="#handleBack2" text="上一步" />
+                        <Button fx:id="nextButton2" mnemonicParsing="false" onAction="#handleNext2" text="下一步" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            
+            <!-- 步骤3: 导入结果 -->
+            <VBox fx:id="step3Box" spacing="15.0" visible="false">
+               <children>
+                  <Label styleClass="step-title" text="步骤3: 导入数据">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="正在导入数据，请稍候..." wrapText="true" />
+                  <HBox alignment="CENTER" spacing="20.0">
+                     <children>
+                        <ProgressIndicator fx:id="importProgressIndicator" progress="0.0" />
+                        <Label fx:id="importSummaryLabel" text="准备导入..." wrapText="true" />
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" top="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                     <children>
+                        <Button fx:id="backButton3" mnemonicParsing="false" onAction="#handleBack3" text="上一步" />
+                        <Button fx:id="finishButton" mnemonicParsing="false" onAction="#handleFinish" text="完成" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </center>
+</BorderPane>

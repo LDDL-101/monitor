@@ -1,0 +1,18 @@
+This is a template for creating a sample Excel file:
+
+1. Create a new Excel file named 'subsidence_data.xlsx'
+2. Create a sheet named '地表点沉降'
+3. Add the following headers in row 1:
+   - A1: 测点编号
+   - B1: 本次高程
+
+4. Add the following data starting in row 2:
+   - A2: P001    B2: 102.541
+   - A3: P002    B3: 103.226
+   - A4: P003    B3: 101.965
+   - A5: P004    B4: 102.108
+   - A6: P005    B5: 103.772
+
+5. Save the file in 'src/main/resources/samples/' directory
+
+This sample data represents elevation readings for 5 monitoring points. 

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.monitor.controller.MainController">
+   <top>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+               <menus>
+                  <Menu mnemonicParsing="false" text="文件">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleNewProject" text="新建项目" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleOpenProject" text="打开项目" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSaveProject" text="保存项目" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleSaveAsProject" text="项目另存为" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#handleExit" text="退出" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="编辑">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="撤销" />
+                        <MenuItem mnemonicParsing="false" text="重做" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" text="剪切" />
+                        <MenuItem mnemonicParsing="false" text="复制" />
+                        <MenuItem mnemonicParsing="false" text="粘贴" />
+                        <MenuItem mnemonicParsing="false" text="删除" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="帮助">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="关于" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+            <ToolBar>
+               <items>
+                  <Button fx:id="newButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="新建" />
+                  <Button fx:id="openButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="打开" />
+                  <Button fx:id="saveButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="保存" />
+                  <Button fx:id="saveAsButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="另存为" />
+                  <Button fx:id="addModuleButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="添加模块" />
+                  <Button fx:id="projectPropertiesButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="项目属性" />
+                  <Button fx:id="saveDefaultButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="保存默认" />
+                  <Button fx:id="loadDefaultButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="加载默认" />
+                  <Button fx:id="toggleSidebarButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="侧边栏">
+                     <graphic>
+                        <Label text="≡" style="-fx-font-size: 18px;"/>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="parametersButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbar-button" text="参数/定义" />
+               </items>
+            </ToolBar>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <SplitPane fx:id="mainSplitPane" dividerPositions="0.25" BorderPane.alignment="CENTER">
+         <items>
+            <!-- 左侧项目树 -->
+            <VBox styleClass="sidebar">
+               <children>
+                  <Label text="项目管理" styleClass="sidebar-title" />
+                  <TreeView fx:id="projectTreeView" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+
+            <!-- 右侧编辑器区域 -->
+            <TabPane fx:id="editorTabPane" tabClosingPolicy="ALL_TABS">
+               <tabs>
+                  <Tab text="欢迎">
+                     <content>
+                        <BorderPane styleClass="welcome-pane">
+                           <center>
+                              <VBox alignment="CENTER" spacing="20.0">
+                                 <children>
+                                    <Label styleClass="welcome-title" text="欢迎使用工程监测软件" />
+                                    <Label text="请从左侧项目树中选择一个项目，或者创建新项目" />
+                                    <HBox alignment="CENTER" spacing="10.0">
+                                       <children>
+                                          <Button mnemonicParsing="false" onAction="#handleNewProject" text="新建项目" />
+                                          <Button mnemonicParsing="false" onAction="#handleOpenProject" text="打开项目" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </center>
+                        </BorderPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+         </items>
+      </SplitPane>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_LEFT" styleClass="status-bar" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="就绪" />
+         </children>
+         <padding>
+            <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>

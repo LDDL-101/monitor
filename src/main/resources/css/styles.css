@@ -1,0 +1,132 @@
+/* General styles */
+.root {
+    -fx-font-family: "Microsoft YaHei", "SimSun", sans-serif;
+    -fx-font-size: 12px;
+    -fx-background-color: #f5f5f5;
+}
+
+/* View title */
+.view-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 5 0 10 0;
+}
+
+/* Section titles */
+.section-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 5 10 5 10;
+    -fx-background-radius: 4;
+}
+
+/* Buttons */
+.tool-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-padding: 5 15 5 15;
+    -fx-cursor: hand;
+    -fx-background-radius: 4;
+}
+
+.tool-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+/* Data preview blocks */
+.data-block {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-padding: 10;
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+}
+
+.data-block:hover {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 1);
+}
+
+.data-block-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+/* Status bar */
+.status-bar {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1 0 0 0;
+}
+
+/* Table styling */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f0f0f0;
+    -fx-font-weight: bold;
+}
+
+/* Chart styling */
+.chart {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1;
+    -fx-padding: 10;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 2px;
+}
+
+.default-color0.chart-series-line { -fx-stroke: #3498db; }
+.default-color1.chart-series-line { -fx-stroke: #e74c3c; }
+.default-color2.chart-series-line { -fx-stroke: #2ecc71; }
+.default-color3.chart-series-line { -fx-stroke: #f39c12; }
+.default-color4.chart-series-line { -fx-stroke: #9b59b6; }
+
+.chart-line-symbol {
+    -fx-background-radius: 3px;
+    -fx-padding: 3px;
+}
+
+.default-color0.chart-line-symbol { -fx-background-color: #3498db; }
+.default-color1.chart-line-symbol { -fx-background-color: #e74c3c; }
+.default-color2.chart-line-symbol { -fx-background-color: #2ecc71; }
+.default-color3.chart-line-symbol { -fx-background-color: #f39c12; }
+.default-color4.chart-line-symbol { -fx-background-color: #9b59b6; }
+
+/* Split pane styling */
+.split-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.split-pane-divider {
+    -fx-background-color: #ddd;
+    -fx-padding: 0 1 0 1;
+}
+
+/* Tab pane styling */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #f5f5f5;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #e0e0e0;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: white;
+    -fx-focus-color: transparent;
+}
+
+.tab-pane .tab-content-area {
+    -fx-background-color: white;
+} 
